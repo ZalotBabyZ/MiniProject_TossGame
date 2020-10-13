@@ -11,6 +11,7 @@ export default class Toss extends Component {
     state = {
         thisTurnPoint: 0,
         currentDice: { point: 0, image: "#" },
+        endGame: false
     }
     diceSrc = [
         { score: 1, image: dice1 },
@@ -25,52 +26,116 @@ export default class Toss extends Component {
         const newDiceImage = this.diceSrc[this.diceSrc.findIndex(obj => obj.score === newDiceScore)].image;
         const updatePoint = newDiceScore === 1 ? 0 : this.state.thisTurnPoint + newDiceScore;
         this.setState({ currentDice: { point: newDiceScore, image: newDiceImage }, thisTurnPoint: updatePoint });
-        if (updatePoint === 0) this.endTurn(0);
-        if(this.props.player.score+updatePoint>=100)this.endTurn(updatePoint)
-        
+        if (updatePoint === 0) this.endTurn(0, 1);
+        if (this.props.player.score + updatePoint >= 100) {
+            this.endTurn(updatePoint, 0);
+            this.setState({ endGame: true });
+        }
+
     }
-    endTurn = (keepPoint) => {
+
+    endTurn = (keepPoint, changePlayer) => {
         // console.log(keepPoint)
         this.props.thisTurnScore({
             NO: this.props.player.NO,
             name: this.props.player.name,
             score: this.props.player.score + keepPoint,
             rank: this.props.player.rank
-        });
+        }, changePlayer);
         this.setState({ thisTurnPoint: 0 });
     }
+    startNewGame = () => {
+        this.props.newGame();
+        this.setState({
+            endGame: false,
+            thisTurnPoint: 0,
+            currentDice: { point: 0, image: "#" }
+        });
+    }
     render() {
+        const { name, score, rank } = this.props.player;
+        const { thisTurnPoint } = this.state;
+        const { point, image } = this.state.currentDice
+        const { endTurn, toss } = this
+
+        const tossBoxStyle = { display: "flex", width: "100vw", height: "30vh", backgroundColor: "#FAA613", color: "#320A28", justifyContent: "center", alignItems: "center" }
+        const HighlightStyle = { color: "#ffffff", backgroundColor: "#bc0016", width: "70%", padding: "5px" }
+        const btnStyle = { color: "#ffffff", backgroundColor: "#bc0016", height: "30px", width: "80px" }
+        const subBoxStyle = { display: "flex", flexDirection: "column", width: "32%", border: " #bc0016 2px  dashed ", height: "90%", justifyContent: "center", alignItems: "center" }
+
         return (
             <div>
-                { (this.props.player.score + this.state.thisTurnPoint >= 100) ?
-                    <div style={{ display: "flex", flexDirection: "column", width: "100vw", height: "30vh", backgroundColor: "#FAA613", justifyContent: "center", alignItems: "center" }}>
-                        <h2>  (っ＾▿＾)۶🍸🌟ผู้ชนะคือ: {this.props.player.name}🌟🍺٩(˘◡˘ )</h2>
-                        <h4> คะแนนสะสม: {this.props.player.score + this.state.thisTurnPoint} คะแนน</h4>
+                { this.state.endGame ?
+
+                    <div className="tossBox" style={{ ...tossBoxStyle, flexDirection: "column" }}>
+                        <h3>
+                            <span role="img" aria-labelledby="celebrate">(っ＾▿＾)۶🍸🌟</span>
+                            &nbsp;&nbsp;&nbsp; ผู้ชนะคือ: {name} &nbsp;&nbsp;&nbsp;
+                            <span role="img" aria-labelledby="celebrate">🌟🍺٩(˘◡˘ )</span>
+                        </h3>
+                        <h4> คะแนนสะสม: {score + thisTurnPoint} คะแนน</h4>
+                        <button onClick={this.startNewGame} style={{ ...btnStyle, width: "70%" }}>New Game</button>
                     </div>
+
                     :
-                    <div className="tossBox" style={{ display: "flex", width: "100vw", height: "30vh", backgroundColor: "#FAA613" }}>
-                        <div className="currentPlayer" style={{ margin: "auto", color: "#320A28", width: "30%" }}>
-                            <h2>ผู้เล่น: {this.props.player.name}</h2>
-                            <h4>คะแนนสะสม: {this.props.player.score}</h4>
-                            <h3 style={{ color: "#000000", backgroundColor: "#bc0016", width: "70%" }}>{this.props.player.rank}</h3>
+
+                    <div className="tossBox" style={tossBoxStyle}>
+                        <div className="currentPlayer" style={subBoxStyle}>
+                            <h3>
+                                {name}
+                                <br />
+                                คะแนนสะสม: {score}
+                            </h3>
+
+                            {rank ? <p style={HighlightStyle}>{rank}</p> : null}
+                            
                         </div>
+                        <div className="Dice" style={subBoxStyle}>
 
-                        <div className="Dice" style={{ color: "#320A28", width: "30%" }}>
+                            {thisTurnPoint ?
 
-                            {this.state.currentDice.point === 0 ? <h1 style={{ color: "#000000", backgroundColor: "#bc0016" }}>เริ่ม</h1>
-                                : <h4> ทอยได้แต้ม: {this.state.currentDice.point}<br />
-                                    <img src={this.state.currentDice.image} alt={this.state.currentDice.point} style={{ width: "10vw" }} /></h4>
+                                <h4>
+                                    ทอยได้แต้ม: {point}
+                                    <br />
+                                    <img src={image} alt={point} style={{ width: "10vw" }} />
+                                </h4>
+
+                                :
+
+                                <h2>
+                                    {name}
+                                    <br /><br />
+                                    ~ ทอย ~
+                                </h2>
+
                             }
+
                         </div>
-                        <div className="thisTurn" style={{ color: "#320A28", width: "30%" }}>
-                            <h3>คะแนนสะสมรอบนี้</h3>
-                            <h2>{this.state.thisTurnPoint}</h2>
+                        <div className="thisTurn" style={subBoxStyle}>
+                            <h3>
+                                คะแนนสะสมรอบนี้
+                                <br />
+                                {thisTurnPoint}
+                            </h3>
                             <div style={{ display: "flex" }}>
-                                <button onClick={this.toss} style={{ backgroundColor: "#bc0016", width: "50%" }}>ทอยแต้ม</button>
-                                <button onClick={()=>this.endTurn(this.state.thisTurnPoint)} style={{ backgroundColor: "#bc0016", width: "50%" }}>เก็บแต้ม</button>
+                                <button onClick={toss} style={btnStyle}>ทอยแต้ม</button>
+
+                                {thisTurnPoint ?
+
+                                    <div style={{ display: "flex" }}>
+                                        <button onClick={() => endTurn(thisTurnPoint, 1)} style={btnStyle}>เก็บแต้ม</button>
+                                    </div>
+
+                                    :
+
+                                    null
+
+                                }
+
                             </div>
                         </div>
                     </div>
+
                 }
             </div>
         )
