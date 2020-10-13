@@ -70,10 +70,10 @@ class App extends React.Component {
   }
 
   render() {
-    const containerStyle = { display: "flex", margin: "0", justifyContent: "center", alignItems: "center", fontSize: "1.2rem", backgroundColor: "#faa613", color: "#bc0016" };
+    const containerStyle = { display: "flex", margin: "0", justifyContent: "center", alignItems: "center", fontSize: "1.2rem", color: "#bc0016" };
 
     return (
-      <div className="App">
+      <div className="App" style={{ backgroundColor: "#FAA613", height: "100vh" }}>
 
         <div style={{ ...containerStyle, height: "10vh", backgroundColor: "#320A28", fontSize: "1.8rem" }}>
           <div style={{ width: "80%" }}> ~ เกมทอยลูกเต๋า( 2-6 คน) ~ </div>
@@ -92,8 +92,8 @@ class App extends React.Component {
             player => <Player
               key={player.NO}
               player={player}
-              width={this.state.playerCount === 2 || this.state.playerCount === 4 ? 48 : 30}
-              height={this.state.playerCount > 3 ? 30 : 60}
+              width={this.state.playerCount === 2 || this.state.playerCount === 4 ? 48 : 32}
+              height={this.state.playerCount > 3 ? 28 : 55}
               color={this.state.playerCount === 4 && player.NO >= 3 ?
                 player.NO === 3 ? "#688e26"
                   : "#4d7c8a"
@@ -103,13 +103,13 @@ class App extends React.Component {
           }
 
           {this.state.playerCount === 5 ?
-            <div style={{ backgroundColor: "#688e26", width: "30vw", height: "30vh" }}>
+            <div style={{ ...containerStyle, backgroundColor: "#688e26", width: "32vw", height: "28vh", color: "#320A28", border: " #bc0016 2px  dashed " }}>
               <span role="img" aria-labelledby="celebrate"> ᕙ(`▿´)ᕗ </span>
             </div>
             :
             null
           }
-          
+
         </div>
       </div>
     );

@@ -6,7 +6,7 @@ export default class Player extends Component {
         const { name, score, rank } = this.props.player;
         const { width, height, color } = this.props;
         return (
-            <div className="playerBox" style={{ display: "flex", flexDirection: "column", width: `${width}vw`, height: `${height}vh`, backgroundColor: color, color: "#320a28", justifyContent: "center", alignItems: "center" }}>
+            <div className="playerBox" style={{ display: "flex", flexDirection: "column", width: `${width}vw`, height: `${height}vh`, border: " #bc0016 2px  dashed ", backgroundColor: color, color: "#320a28", justifyContent: "center", alignItems: "center" }}>
                 <p> {name} <br />
                     {score} <br /> <br />
                     {{ rank } ?
