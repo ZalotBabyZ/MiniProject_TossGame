@@ -48,7 +48,10 @@ class App extends React.Component {
   }
 
   newGame = () => {
-    const playerCount = +prompt("กรอกจำนวนผู้เล่น(2-6):", 4);
+    let playerCount = +prompt("กรอกจำนวนผู้เล่น(2-6):", 4);
+    while (playerCount<2 || playerCount>6) {
+      playerCount = +prompt("กรอกจำนวนผู้เล่น ระหว่าง 2-6 (คน):", 4);
+    }
     const playerList = [];
 
     for (let i = 1; i <= playerCount; i++) {
