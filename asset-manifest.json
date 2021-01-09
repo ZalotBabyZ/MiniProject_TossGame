@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/MiniProject_TossGame/static/css/main.523f09c5.chunk.css",
+    "main.js": "/MiniProject_TossGame/static/js/main.83feac5d.chunk.js",
+    "main.js.map": "/MiniProject_TossGame/static/js/main.83feac5d.chunk.js.map",
+    "runtime-main.js": "/MiniProject_TossGame/static/js/runtime-main.0919244a.js",
+    "runtime-main.js.map": "/MiniProject_TossGame/static/js/runtime-main.0919244a.js.map",
+    "static/js/2.a4d74fc6.chunk.js": "/MiniProject_TossGame/static/js/2.a4d74fc6.chunk.js",
+    "static/js/2.a4d74fc6.chunk.js.map": "/MiniProject_TossGame/static/js/2.a4d74fc6.chunk.js.map",
+    "index.html": "/MiniProject_TossGame/index.html",
+    "precache-manifest.a78f1cac6e28de482d0833cd72c7aebd.js": "/MiniProject_TossGame/precache-manifest.a78f1cac6e28de482d0833cd72c7aebd.js",
+    "service-worker.js": "/MiniProject_TossGame/service-worker.js",
+    "static/css/main.523f09c5.chunk.css.map": "/MiniProject_TossGame/static/css/main.523f09c5.chunk.css.map",
+    "static/js/2.a4d74fc6.chunk.js.LICENSE.txt": "/MiniProject_TossGame/static/js/2.a4d74fc6.chunk.js.LICENSE.txt",
+    "static/media/DICE1.png": "/MiniProject_TossGame/static/media/DICE1.43522caf.png",
+    "static/media/DICE2.png": "/MiniProject_TossGame/static/media/DICE2.a5b05db9.png",
+    "static/media/DICE3.png": "/MiniProject_TossGame/static/media/DICE3.23f1f26c.png",
+    "static/media/DICE4.png": "/MiniProject_TossGame/static/media/DICE4.0b33515c.png",
+    "static/media/DICE5.png": "/MiniProject_TossGame/static/media/DICE5.23d7427a.png",
+    "static/media/DICE6.png": "/MiniProject_TossGame/static/media/DICE6.5419ac09.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0919244a.js",
+    "static/js/2.a4d74fc6.chunk.js",
+    "static/css/main.523f09c5.chunk.css",
+    "static/js/main.83feac5d.chunk.js"
+  ]
+}
